@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://dowdok4d74mc8"]
+
+[ext_resource type="Texture2D" uid="uid://vxm1cgb0rcr0" path="res://Ui/IMG_9525.jpg" id="1_dj54k"]
+[ext_resource type="Script" path="res://Ui/Main.gd" id="1_mxe2a"]
+[ext_resource type="Theme" uid="uid://cwsv80nhdjngi" path="res://assets/theme.tres" id="3_nqxi6"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Img9525" type="Sprite2D" parent="."]
+position = Vector2(574, 326)
+scale = Vector2(1.88818, 1.93567)
+texture = ExtResource("1_dj54k")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 339.0
+offset_top = 65.0
+offset_right = 815.0
+offset_bottom = 107.0
+theme = ExtResource("3_nqxi6")
+text = "Cool Dungeon Game"
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.866
+offset_right = -1112.0
+offset_bottom = -521.168
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_mxe2a")
+
+[node name="Button" type="Button" parent="Main"]
+layout_mode = 0
+offset_left = 516.0
+offset_top = 299.0
+offset_right = 629.0
+offset_bottom = 340.0
+theme = ExtResource("3_nqxi6")
+text = "Start"
+
+[node name="Button2" type="Button" parent="Main"]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 356.0
+offset_right = 618.0
+offset_bottom = 397.0
+theme = ExtResource("3_nqxi6")
+text = "Exit"
+
+[connection signal="pressed" from="Main/Button" to="Main" method="_on_button_pressed"]
+[connection signal="pressed" from="Main/Button2" to="Main" method="_on_button_2_pressed"]

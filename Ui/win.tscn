@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://dul3qu6ueu0fl"]
+
+[ext_resource type="Theme" uid="uid://cwsv80nhdjngi" path="res://assets/theme.tres" id="1_icseo"]
+[ext_resource type="Script" path="res://Ui/Button.gd" id="2_d55an"]
+[ext_resource type="AudioStream" uid="uid://gahbpkxylscs" path="res://assets/sounds/medieval-fanfare-6826.mp3" id="3_hwyus"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_d55an")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 516.0
+offset_top = 299.0
+offset_right = 629.0
+offset_bottom = 340.0
+theme = ExtResource("1_icseo")
+text = "Menu"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 465.0
+offset_top = 181.0
+offset_right = 689.0
+offset_bottom = 223.0
+theme = ExtResource("1_icseo")
+text = "You Win!"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hwyus")
+volume_db = -15.238
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk4v1k8bosp2r"]
+
+[ext_resource type="Script" path="res://objects/Enemy/Enemy.gd" id="1_xtj7s"]
+[ext_resource type="PackedScene" uid="uid://bx1pmxxya6p2g" path="res://objects/Enemy/character_animations.tscn" id="2_0av0o"]
+[ext_resource type="AudioStream" uid="uid://bjyi1oit0gldh" path="res://assets/sounds/stop-right-there-criminal-scum-made-with-Voicemod.mp3" id="3_clxjp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f38p8"]
+radius = 5.173
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wqog6"]
+radius = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dvf5s"]
+random_pitch = 1.4
+random_volume_offset_db = 1.19
+streams_count = 1
+stream_0/stream = ExtResource("3_clxjp")
+stream_0/weight = 1.0
+
+[node name="Enemy" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.4637, -3.84489, -1.60195)
+script = ExtResource("1_xtj7s")
+
+[node name="RayPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Detect" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detect"]
+shape = SubResource("SphereShape3D_f38p8")
+
+[node name="Attack" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Attack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0965444)
+shape = SubResource("SphereShape3D_wqog6")
+
+[node name="Character_Animations" parent="." instance=ExtResource("2_0av0o")]
+transform = Transform3D(-1.2, 0, 1.81195e-07, 0, 1.2, 0, -1.81195e-07, 0, -1.2, -0.0988312, -0.0640152, -0.0476491)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.0988312, 1.18829, -0.400406)
+light_color = Color(1, 0.388235, 0.419608, 1)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_dvf5s")
+volume_db = -12.16
+bus = &"reverb2"
+
+[connection signal="body_entered" from="Detect" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]

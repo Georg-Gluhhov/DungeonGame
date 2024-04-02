@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cwsv80nhdjngi"]
+
+[ext_resource type="FontFile" uid="uid://b1gb1brs87xi8" path="res://assets/fonts/BigBlueTermPlusNerdFont-Regular.ttf" id="1_81t8e"]
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_81t8e")
+Label/font_sizes/font_size = 42
+Label/fonts/font = ExtResource("1_81t8e")

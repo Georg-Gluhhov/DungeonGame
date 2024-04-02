@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=3 uid="uid://jmi7dxrty3kx"]
+
+[ext_resource type="Script" path="res://objects/3DPlayer/Player3D.gd" id="1_28t26"]
+[ext_resource type="Script" path="res://objects/3DPlayer/SpringArm3D.gd" id="2_o6mtf"]
+[ext_resource type="Script" path="res://components/state_machine/Statemachine.gd" id="3_68x2u"]
+[ext_resource type="Script" path="res://components/state_machine/PlayerMoving.gd" id="4_yusfu"]
+[ext_resource type="Script" path="res://components/state_machine/PlayerIdle.gd" id="5_ankrh"]
+[ext_resource type="Script" path="res://components/state_machine/PlayerJump.gd" id="6_pvv50"]
+[ext_resource type="Script" path="res://components/state_machine/PlayerAir.gd" id="7_2eivf"]
+[ext_resource type="PackedScene" uid="uid://qbjoeeari75p" path="res://objects/label/SoundLabel.tscn" id="8_jwj8a"]
+[ext_resource type="AudioStream" uid="uid://deeiikxirfxwa" path="res://assets/sounds/a_dungeon_ambience_loop-79423.mp3" id="9_73ews"]
+[ext_resource type="Script" path="res://Ui/Pause.gd" id="10_gi78u"]
+[ext_resource type="Theme" uid="uid://cwsv80nhdjngi" path="res://assets/theme.tres" id="11_fy6ab"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rpe6a"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_nh0tl"]
+
+[node name="Player3D" type="CharacterBody3D"]
+script = ExtResource("1_28t26")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 2.79397e-09, 0, -2.79397e-09, 1, 0, 0, 0, 1, -0.00109956, 0.299999, 0)
+shape = SubResource("CapsuleShape3D_rpe6a")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(0.999996, -0.00107351, 0.00259167, 0.0010735, 0.999999, 6.14982e-06, -0.00259167, -3.36765e-06, 0.999997, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot/Camera3D"]
+transform = Transform3D(-0.999998, 0.002147, 9.96515e-08, 0.002147, 0.999998, 1.22996e-05, -7.45058e-08, 1.22997e-05, -1, 0, 0, 0)
+shape = SubResource("SeparationRayShape3D_nh0tl")
+spring_length = 4.0
+script = ExtResource("2_o6mtf")
+
+[node name="Pickup" type="Marker3D" parent="CameraPivot/Camera3D/SpringArm3D"]
+transform = Transform3D(1, -5.85424e-10, 0, 4.62314e-10, 1, 2.27374e-13, -6.98492e-10, -2.04636e-12, 1, 0, 0, 0)
+
+[node name="Interaction" type="RayCast3D" parent="CameraPivot/Camera3D"]
+transform = Transform3D(-0.999998, 0.002147, 9.96515e-08, 0.002147, 0.999999, 1.22996e-05, -7.40401e-08, 1.22998e-05, -1, 0.00199009, 2.563e-06, -0.767878)
+target_position = Vector3(0, 0, 4)
+collision_mask = 2
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
+script = ExtResource("3_68x2u")
+init_state = NodePath("Idle")
+
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("4_yusfu")
+player = NodePath("../..")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_ankrh")
+player = NodePath("../..")
+
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("6_pvv50")
+player = NodePath("../..")
+
+[node name="Air" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("7_2eivf")
+player = NodePath("../..")
+
+[node name="Label" parent="." instance=ExtResource("8_jwj8a")]
+offset_left = -19.0
+offset_top = 35.0
+offset_right = 21.0
+offset_bottom = 59.0
+text = "Find a key"
+duration = 1.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_73ews")
+autoplay = true
+bus = &"reverb"
+
+[node name="Pause" type="Control" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.866
+offset_left = -536.0
+offset_top = -486.528
+offset_right = -1648.0
+offset_bottom = -1007.7
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("10_gi78u")
+
+[node name="Button" type="Button" parent="Pause"]
+layout_mode = 0
+offset_left = 1031.0
+offset_top = 781.528
+offset_right = 1186.0
+offset_bottom = 822.528
+theme = ExtResource("11_fy6ab")
+text = "Restart"
+
+[node name="Button3" type="Button" parent="Pause"]
+layout_mode = 0
+offset_left = 1032.0
+offset_top = 729.528
+offset_right = 1187.0
+offset_bottom = 770.528
+theme = ExtResource("11_fy6ab")
+text = "Resume
+"
+
+[node name="Button2" type="Button" parent="Pause"]
+layout_mode = 0
+offset_left = 987.0
+offset_top = 837.528
+offset_right = 1247.0
+offset_bottom = 878.528
+theme = ExtResource("11_fy6ab")
+text = "Exit to menu"
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="pressed" from="Pause/Button" to="Pause" method="_on_button_pressed"]
+[connection signal="pressed" from="Pause/Button3" to="Pause" method="_on_button_3_pressed"]
+[connection signal="pressed" from="Pause/Button2" to="Pause" method="_on_button_2_pressed"]

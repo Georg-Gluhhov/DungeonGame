@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://qbjoeeari75p"]
+
+[ext_resource type="Script" path="res://objects/label/Label.gd" id="1_citss"]
+[ext_resource type="FontFile" uid="uid://b1gb1brs87xi8" path="res://assets/fonts/BigBlueTermPlusNerdFont-Regular.ttf" id="1_fy7dp"]
+[ext_resource type="AudioStream" uid="uid://de6avs8lx8fe5" path="res://assets/sounds/keyboard.ogg" id="2_mmimk"]
+[ext_resource type="AudioStream" uid="uid://bjddp5g3dibnt" path="res://assets/sounds/keyboard2.ogg" id="3_ukfyr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ery0y"]
+font = ExtResource("1_fy7dp")
+font_size = 24
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.0627451, 0.0627451, 0.0627451, 0.74902)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6rvkn"]
+random_pitch = 1.8
+random_volume_offset_db = 2.06
+streams_count = 2
+stream_0/stream = ExtResource("2_mmimk")
+stream_0/weight = 0.07
+stream_1/stream = ExtResource("3_ukfyr")
+stream_1/weight = 0.0
+
+[node name="Label" type="Label"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+text = "Hey guys, did you know that in terms of human companionship, 
+Flareon is objectively the most huggable Pokemon? 
+While their maximum temperature is likely too much for most, 
+they are capable of controlling it, so 
+they can set themselves to the perfect temperature for you. 
+Along with that, they have a lot of fluff,
+ making them undeniably incredibly soft to touch. 
+But that's not all, they have a very respectable 
+special defense stat of 110,
+ which means that they are likely very calm 
+and resistant to emotional damage.
+ Because of this, if you have a bad day, you can 
+vent to it while hugging it, and it won't mind. 
+It can make itself even more endearing with 
+moves like Charm and Baby Doll Eyes, ensuring that you never have a 
+prolonged bout of depression ever again."
+label_settings = SubResource("LabelSettings_ery0y")
+horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+script = ExtResource("1_citss")
+ease = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_6rvkn")
+bus = &"reverb"
