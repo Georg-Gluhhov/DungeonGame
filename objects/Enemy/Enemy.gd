@@ -19,12 +19,7 @@ func enemy_new_path() -> void:
 	look_at(player.global_position, Vector3.UP)
 	pathing_point = 0 
 func _physics_process(delta):
-	# Get the world's direct space state
-	
-	# Define the raycast parameters
 
-	# Perform the raycast
-	# Check if the ray hit the player
 	if pathing:
 		var path_next_point: Vector3 = path_points_packed[pathing_point] - global_position
 		if path_next_point.length_squared() > 1.0:
